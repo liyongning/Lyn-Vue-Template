@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lyn Vue1.0</title>
+</head>
+
+<body>
+  <div id="app">
+    <h3>数据响应式更新 原理</h3>
+    <div>{{ t }}</div>
+    <div>{{ t1 }}</div>
+    <div>{{ arr }}</div>
+    <h3>methods + 事件 + 数据响应式更新 原理</h3>
+    <div>
+      <p>{{ counter }}</p>
+      <button v-on:click="handleAdd"> Add </button>
+      <button v-on:click="handleMinus"> Minus </button>
+    </div>
+    <h3>v-model 原理</h3>
+    <div>
+      <input type="text" v-model="inputVal" />
+      <div>{{ inputVal }}</div>
+    </div>
+    <div>
+      <input type="checkbox" v-model="isChecked">
+      <div>{{ isChecked }}</div>
+    </div>
+    <div>
+      <select v-model="selectValue">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <div>{{ selectValue }}</div>
+    </div>
+  </div>
+  <script type="module">
+    import Vue from './src/index.js'
+    const ins = new Vue({
+      data() {
+        return {
+          // 原始值和对象的响应式原理
+          t: 't value',
+          t1: {
+            tt1: 'tt1 value'
+          },
+          // 数组的响应式原理
+          arr: [1, 2, 3],
+          // 响应式更新
+          counter: 0,
+          // v-model
+          inputVal: 'test',
+          isChecked: true,
+          selectValue: 2
+        }
+      },
+      // methods + 事件 + 数据响应式更新 原理
+      methods: {
+        handleAdd() {
+          this.counter++
+        },
+        handleMinus() {
+          this.counter--
+        }
+      },
+    })
+    // 数据响应式拦截
+    setTimeout(() => {
+      console.log('********** 属性值为原始值时的 getter、setter ************')
+      console.log(ins.t)
+      ins.t = 'change t value'
+      console.log(ins.t)
+    }, 1000)
+
+    setTimeout(() => {
+      console.log('********** 属性的新值为对象的情况 ************')
+      ins.t = {
+        tt: 'tt value'
+      }
+      console.log(ins.t.tt)
+    }, 2000)
+
+    setTimeout(() => {
+      console.log('********** 验证对深层属性的 getter、setter 拦截 ************')
+      ins.t1.tt1 = 'change tt1 value'
+      console.log(ins.t1.tt1)
+    }, 3000)
+
+    setTimeout(() => {
+      console.log('********** 将值为对象的属性更新为原始值 ************')
+      console.log(ins.t1)
+      ins.t1 = 't1 value'
+      console.log(ins.t1)
+    }, 4000)
+
+    setTimeout(() => {
+      console.log('********** 数组操作方法的拦截 ************')
+      console.log(ins.arr)
+      ins.arr.push(4)
+      console.log(ins.arr)
+    }, 5000)
+  </script>
+</body>
+
+</html>
