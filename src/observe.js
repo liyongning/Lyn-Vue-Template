@@ -6,8 +6,8 @@ import Observer from "./observer.js"
  */
 export default function observe(value) {
   // 避免无限递归
-  // 当 value 不是对象或者 value 是 Observer 实例时，直接结束递归
-  if (typeof value !== 'object' || value instanceof Observer) return
+  // 当 value 不是对象直接结束递归
+  if (typeof value !== 'object') return
 
   // value.__ob__ 是 Observer 实例
   // 如果 value.__ob__ 属性已经存在，说明 value 对象已经具备响应式能力，直接返回已有的响应式对象
