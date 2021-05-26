@@ -18,6 +18,8 @@
       <button v-on:click="handleAdd"> Add </button>
       <button v-on:click="handleMinus"> Minus </button>
     </div>
+    <h3>v-bind</h3>
+    <span v-bind:title="title">右键审查元素查看我的 title 属性</span>
     <h3>v-model 原理</h3>
     <div>
       <input type="text" v-model="inputVal" />
@@ -51,6 +53,8 @@
           arr: [1, 2, 3],
           // 响应式更新
           counter: 0,
+          // v-bind
+          title: '看我',
           // v-model
           inputVal: 'test',
           isChecked: true,
