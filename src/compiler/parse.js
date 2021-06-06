@@ -13,6 +13,12 @@ export default function parse(template) {
 
   let html = template
   while (html) {
+    // 过滤注释标签
+    if (html.indexOf('<!--') === 0) {
+      // 说明开始位置是一个注释标签，忽略掉
+      html = html.slice(html.indexOf('-->') + 3)
+      break;
+    } 
     // 匹配开始标签
     const startIdx = html.indexOf('<')
     if (startIdx === 0) {
@@ -102,7 +108,7 @@ export default function parse(template) {
     for (let i = 0, len = attrs.length; i < len; i++) {
       const attr = attrs[i]
       const [attrName, attrValue] = attr.split('=')
-      attrMap[attrName] = attrValue
+      attrMap[attrName] = attrValue.replace(/"/g, '')
     }
     return attrMap
   }
@@ -184,10 +190,10 @@ function processVModel(curEle) {
   const { type, 'v-model': vModelVal } = rawAttr
 
   if (tag === 'input') {
-    if (type === 'text') {
+    if (/text/.test(type)) {
       // <input type="text" v-model="inputVal" />
       attr.vModel = { tag, type: 'text', value: vModelVal }
-    } else if (type === 'checkbox') {
+    } else if (/checkbox/.test(type)) {
       // <input type="checkbox" v-model="isChecked" />
       attr.vModel = { tag, type: 'checkbox', value: vModelVal }
     }

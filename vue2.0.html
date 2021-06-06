@@ -43,12 +43,12 @@
     <h3>组件 原理</h3>
     <comp></comp>
     <h3>插槽 原理</h3>
-    <scope-slot></scope-slot>
+    <!-- <scope-slot></scope-slot>
     <scope-slot>
       <template v-slot:default="scopeSlot">
         <div>{{ scopeSlot }}</div>
       </template>
-    </scope-slot>
+    </scope-slot> -->
   </div>
   <script type="module">
     import Vue from './src/index.js'
@@ -65,10 +65,12 @@
           arr: [1, 2, 3],
           // 响应式更新
           counter: 0,
+          // v-bind
+          title: "I am title",
           // v-model
           inputVal: 'test',
           isChecked: true,
-          selectValue: 2
+          selectValue: 2,
         }
       },
       // methods + 事件 + 数据响应式更新 原理

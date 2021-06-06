@@ -25,7 +25,7 @@ function genElement(ast) {
   const children = genChildren(ast)
 
   // 处理子节点
-  return `_c(${tag}, ${JSON.stringify(attrs)}, ${children})`
+  return `_c('${tag}', ${JSON.stringify(attrs)}, [${children}])`
 }
 
 /**
@@ -40,7 +40,7 @@ function genChildren(ast) {
     const child = children[i]
     if (child.type === 3) {
       // 文本节点
-      ret.push('_v(child)')
+      ret.push(`_v(${JSON.stringify(child)})`)
     } else if (child.type === 1) {
       // 元素节点
       ret.push(genElement(child))
