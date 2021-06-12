@@ -45,22 +45,24 @@ function createElm(vnode, parent, referNode) {
   const { attr, children, text } = vnode
   if (text) { // 文本节点
     // 创建文本节点，并插入到父节点内
-    createTextNode(vnode, parent)
+    vnode.elm = createTextNode(vnode)
   } else { // 元素节点
     // 创建元素，在 vnode 上记录对应的 dom 节点
-    const elm = vnode.elm = document.createElement(vnode.tag)
+    vnode.elm = document.createElement(vnode.tag)
     // 给元素设置属性
     setAttribute(attr, vnode)
     // 递归创建子节点
     for (let i = 0, len = children.length; i < len; i++) {
-      createElm(children[i], elm)
+      createElm(children[i], vnode.elm)
     }
-    if (parent) {
-      if (referNode) {
-        parent.insertBefore(elm, referNode)
-      } else {
-        parent.appendChild(elm)
-      }
+  }
+  // 如果存在 parent，则将创建的节点插入到父节点内
+  if (parent) {
+    const elm = vnode.elm
+    if (referNode) {
+      parent.insertBefore(elm, referNode)
+    } else {
+      parent.appendChild(elm)
     }
   }
 }
@@ -75,18 +77,23 @@ function createComponent(vnode) {
     const { tag, context: { $options: { components } } } = vnode
     const compOptions = components[tag]
     const compIns = new Vue(compOptions)
+    // 将父组件的 VNode 放到子组件的实例上
+    compIns._parentVnode = vnode
+    // 挂载子组件
     compIns.$mount()
+    // 记录子组件 vnode 的父节点信息
     compIns._vnode.parent = vnode.parent
+    // 将子组件添加到父节点内
     vnode.parent.appendChild(compIns._vnode.elm)
     return true
   }
 }
 
 /**
- * 创建文本节点，并插入到父节点
+ * 创建文本节点
  * @param {*} textVNode 文本节点的 VNode
  */
-function createTextNode(textVNode, parent) {
+function createTextNode(textVNode) {
   let { text } = textVNode, textNode = null
   if (text.expression) {
     // 存在表达式，这个表达式的值是一个响应式数据
@@ -96,7 +103,7 @@ function createTextNode(textVNode, parent) {
     // 纯文本
     textNode = document.createTextNode(text.text)
   }
-  parent.appendChild(textNode)
+  return textNode
 }
 
 /**

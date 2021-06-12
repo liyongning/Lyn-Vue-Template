@@ -24,7 +24,12 @@ function genElement(ast) {
   // 处理子节点，得到一个所有子节点渲染函数组成的数组
   const children = genChildren(ast)
 
-  // 处理子节点
+  if (tag === 'slot') {
+    // 生成插槽的处理函数
+    return `_t(${JSON.stringify(attrs)}, [${children}])`
+  }
+
+  // 生成 VNode 的可执行方法
   return `_c('${tag}', ${JSON.stringify(attrs)}, [${children}])`
 }
 
@@ -48,4 +53,3 @@ function genChildren(ast) {
   }
   return ret
 }
-

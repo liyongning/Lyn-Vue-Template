@@ -8,40 +8,13 @@
 
 <body>
   <div id="app">
-    <h3>数据响应式更新 原理</h3>
-    <div>{{ t }}</div>
-    <div>{{ t1 }}</div>
-    <div>{{ arr }}</div>
-    <h3>methods + computed + 异步更新队列 原理</h3>
-    <div>
-      <p>{{ counter }}</p>
-      <div>{{ doubleCounter }}</div>
-      <div>{{ doubleCounter }}</div>
-      <div>{{ doubleCounter }}</div>
-      <button v-on:click="handleAdd"> Add </button>
-      <button v-on:click="handleMinus"> Minus </button>
-    </div>
-    <h3>v-bind</h3>
-    <span v-bind:title="title">右键审查元素查看我的 title 属性</span>
-    <h3>v-model 原理</h3>
-    <div>
-      <input type="text" v-model="inputVal" />
-      <div>{{ inputVal }}</div>
-    </div>
-    <div>
-      <input type="checkbox" v-model="isChecked" />
-      <div>{{ isChecked }}</div>
-    </div>
-    <div>
-      <select v-model="selectValue">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <div>{{ selectValue }}</div>
-    </div>
-    <h3>组件 原理</h3>
-    <comp></comp>
+    <h3>插槽 原理</h3>
+    <scope-slot></scope-slot>
+    <!-- <scope-slot>
+      <template v-slot:default="scopeSlot">
+        <div>{{ scopeSlot }}</div>
+      </template>
+    </scope-slot> -->
   </div>
   <script type="module">
     import Vue from './src/index.js'
