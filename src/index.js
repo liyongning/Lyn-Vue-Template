@@ -5,6 +5,7 @@
 import mount from "./compiler/index.js"
 import patch from "./compiler/patch.js"
 import renderHelper from "./compiler/renderHelper.js"
+import initComputed from "./initComputed.js"
 import initData from "./initData.js"
 
 /**
@@ -26,6 +27,7 @@ Vue.prototype._init = function (options) {
   // 代理 data 对象上的各个属性到 Vue 实例
   // 给 data 对象上的各个属性设置响应式能力
   initData(this)
+  initComputed(this)
   // 安装运行时的渲染工具函数
   renderHelper(this)
   // 在实例上安装 patch 函数
