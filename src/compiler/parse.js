@@ -152,6 +152,10 @@ export default function parse(template) {
     stack[stack.length - 1].children.push(textAst)
   }
 
+  /**
+   * 处理元素的闭合标签时会调用该方法
+   * 进一步处理元素上的各个属性，将处理结果放到 attr 属性上
+   */
   function processElement() {
     // 弹出栈顶元素，进一步处理该元素
     const curEle = stack.pop()

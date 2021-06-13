@@ -29,6 +29,7 @@ export default function patch(oldVnode, vnode) {
       patchVnode(oldVnode, vnode)
     }
   }
+  return vnode.elm
 }
 
 /**
@@ -227,7 +228,7 @@ function patchVnode(oldVnode, vnode) {
         }
       } catch {
         // 防止更新时遇到插槽，导致报错
-        // 目前不知道插槽数据的响应式更新
+        // 目前不处理插槽数据的响应式更新
       }
     }
   }

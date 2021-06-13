@@ -15,7 +15,7 @@ export default function VNode(tag, attr, children, context, text = null) {
     attr,
     // 父节点
     parent: null,
-    // 子节点的组成的 Vnode 数组
+    // 子节点组成的 Vnode 数组
     children,
     // 文本节点的 Ast 对象
     text,

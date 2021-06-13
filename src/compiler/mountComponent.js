@@ -13,6 +13,14 @@ export default function mountComponent(vm) {
   new Watcher(updateComponent)
 }
 
+/**
+ * 负责执行 vm.$options.render 函数
+ */
+Vue.prototype._render = function () {
+  // 给 render 函数绑定 this 上下文为 Vue 实例
+  return this.$options.render.apply(this)
+}
+
 Vue.prototype._update = function (vnode) {
   // 老的 VNode
   const prevVNode = this._vnode

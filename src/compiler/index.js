@@ -22,7 +22,7 @@ export default function mount(vm) {
     // 生成渲染函数
     const render = compileToFunction(template)
     // 将渲染函数挂载到 $options 上
-    vm._render = render
+    vm.$options.render = render
   }
   mountComponent(vm)
 }

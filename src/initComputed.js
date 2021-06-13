@@ -1,5 +1,11 @@
 import Watcher from "./watcher.js"
 
+/**
+ * 初始化 computed 配置项
+ * 为每一项实例化一个 Watcher，并将其 computed 属性代理到 Vue 实例上
+ * 结合 watcher.dirty 和 watcher.evalute 实现 computed 缓存
+ * @param {*} vm Vue 实例
+ */
 export default function initComputed(vm) {
   // 获取 computed 配置项
   const computed = vm.$options.computed

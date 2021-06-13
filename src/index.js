@@ -27,6 +27,8 @@ Vue.prototype._init = function (options) {
   // 代理 data 对象上的各个属性到 Vue 实例
   // 给 data 对象上的各个属性设置响应式能力
   initData(this)
+  // 初始化 computed 选项，并将计算属性代理到 Vue 实例上
+  // 结合 watcher 实现缓存
   initComputed(this)
   // 安装运行时的渲染工具函数
   renderHelper(this)
