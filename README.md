@@ -16,7 +16,7 @@ npm i serve -g
 serve
 ```
 
-# 博客
+# 外链
 
 * [配套博客](https://juejin.cn/user/1028798616461326)
 
