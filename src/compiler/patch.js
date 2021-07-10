@@ -250,7 +250,7 @@ function updateChildren(ch, oldCh) {
   // 老结束
   let oldEndIdx = oldCh.length - 1
   // 循环遍历新老节点，找出节点中不一样的地方，然后更新
-  while (newStartIdx <= newEndIdx || oldStartIdx <= oldEndIdx) { // 根为 web 中的 DOM 操作特点，做了四种假设，降低时间复杂度
+  while (newStartIdx <= newEndIdx && oldStartIdx <= oldEndIdx) { // 根为 web 中的 DOM 操作特点，做了四种假设，降低时间复杂度
     // 新开始节点
     const newStartNode = ch[newStartIdx]
     // 新结束节点
