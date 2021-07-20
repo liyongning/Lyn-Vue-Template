@@ -76,6 +76,8 @@ function nextTick(cb) {
   if (!pending) { // 表明浏览器当前任务队列中没有刷新 callbacks 数组的函数
     // 将 flushCallbacks 函数放入浏览器的微任务队列
     Promise.resolve().then(flushCallbacks)
+    // 标识浏览器的微任务队列中已经存在 刷新 callbacks 数组的函数了
+    pending = true
   }
 }
 
